@@ -4,8 +4,8 @@ const getuser=async (req,res)=>{
   res.send("Welcome to Backend")
 }
 const register = async (req, res) => {
-  const { username, email, password,confrimpassword ,role } = req.body;
-  if(password!=confrimpassword){
+  const { username, email, password,confrimpassword,role } = req.body;
+  if(password!==confrimpassword){
     return res.status(400).json({ message: "Passwords do not match" });
   }
   try {
