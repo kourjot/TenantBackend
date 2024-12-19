@@ -9,7 +9,7 @@ const register = async (req, res) => {
     return res.status(400).json({ message: "Passwords do not match" });
   }
   try {
-    const user = new User({ username, email, password, role });
+    const user = await new User({ username, email, password, role });
     await user.save();
     res.status(201).json({ message: "User created successfully" });
   } catch (error) {
