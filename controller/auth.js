@@ -20,7 +20,7 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await User.findOne({ email });
+    const user = await User.find({ email });
     if (!user) return res.status(400).json({ message: "User not found" });
 
     const isMatch = await user.comparePassword(password);
