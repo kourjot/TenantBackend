@@ -10,5 +10,5 @@ app.use(cors());
 app.use("/api/auth", router);
 db();
 app.listen(process.env.PORT, async () => {
-  console.log("Server is running on port 5006");
+  console.log(`Server is running on port ${process.env.PORT}`);
 });
