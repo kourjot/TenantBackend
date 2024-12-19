@@ -17,13 +17,13 @@ const getuser=async (req,res)=>{
 
 
 const register = async (req, res) => {
-  const { username, email, password,role } = req.body;
+  const { username, gmail, password,role } = req.body;
   const hashpass=await argon2.hash(password)
 
   try {
     const user = await new User({ 
       username, 
-      email, 
+      gmail, 
       password:hashpass, 
       role 
     });
@@ -35,8 +35,8 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email:email});
+  const { gmail, password } = req.body;
+  const user = await User.findOne({ gmail:gmail});
   if (!user) return res.status(404).json({ message: "User not found" });
   try {
     const vaild=await argon2.verify(user.password,password);
