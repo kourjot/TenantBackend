@@ -1,6 +1,7 @@
 import {connect} from "mongoose"
 import "dotenv/config";
 const url=process.env.MONGO_URL
+console.log(url)
 const db =async()=>{
     try{
         await connect(url)
