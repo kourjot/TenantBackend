@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
 import { User } from "../model/user.js";
-
+const getuser=async (req,res)=>{
+  res.send("Welcome to Backend")
+}
 const register = async (req, res) => {
   const { username, email, password, role } = req.body;
   try {
@@ -31,4 +33,4 @@ const login = async (req, res) => {
   }
 };
 
-export { register, login };
+export { register, login ,getuser};
