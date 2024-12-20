@@ -7,8 +7,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 app.use(cors());
-app.use("/api/auth", router);
+app.use("/api", router);
 db();
 app.listen(process.env.PORT, async () => {
-  console.log(`Server is running on port ${process.env.PORT}`);
+  console.log(`Server is running on ${process.env.PORT}`);
 });

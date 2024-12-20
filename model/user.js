@@ -15,5 +15,7 @@ const userSchema = Schema({
     },
     role: { type: String, enum: ['tenant', 'landlord'], required: true },
 })
+
 const User=model("user", userSchema)
-export { User};
+
+export { User}
