@@ -42,7 +42,7 @@ const resetPassword = async (req, res) => {
         if (!user) {
             return res.status(404).json({ msg: 'User not found' });
         }
-
+        console.log(user);
         if (String(user.otp).trim() === String(otp).trim()) {
             console.log('OTP matched:', otp);
             if (!newpassword) {
