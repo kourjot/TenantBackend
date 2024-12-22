@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maintenance Request Form</title>
+</head>
+<body>
+  <h1>Maintenance Request Form</h1>
+  <form id="maintenanceForm" enctype="multipart/form-data">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="address">Address:</label><br>
+    <input type="text" id="address" name="address" required><br><br>
+
+    <label for="category">Category:</label><br>
+    <select id="category" name="category" required>
+      <option value="Plumbing">Plumbing</option>
+      <option value="Electrical">Electrical</option>
+      <option value="HVAC">HVAC</option>
+      <option value="Other">Other</option>
+    </select><br><br>
+
+    <label for="urgency">Urgency:</label><br>
+    <select id="urgency" name="urgency" required>
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select><br><br>
+
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+
+    <label for="image">Upload Image (if any):</label><br>
+    <input type="file" id="image" name="image"><br><br>
+
+    <button type="submit">Submit Maintenance Request</button>
+  </form>
+
+  <h2>Response:</h2>
+  <pre id="response"></pre>
+
+  <script>
+    document.getElementById("maintenanceForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent form from submitting normally
+
+      // Create FormData object
+      const formData = new FormData(this);
+
+      // Send the request using fetch
+      fetch('http://localhost:6010/api/maintenance', {
+        method: 'POST',
+        body: formData,
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Display the server response
+        document.getElementById("response").textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(error => {
+        document.getElementById("response").textContent = "Error: " + error.message;
+      });
+    });
+  </script>
+</body>
+</html>

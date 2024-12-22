@@ -1,17 +1,13 @@
-import jwt from "jsonwebtoken";
 import argon2  from "argon2"
-import mongoose from "mongoose"
 import "dotenv/config";
 import { User} from "../model/user.js";
 // import { Tenant } from '../model/tenant.js';
 // import {landlord} from "../model/landlord.js";
 const SECRET_KEY=process.env.SECRET_KEY
-
 const getuser=async(req,res)=>{
   try{
     const { page = 1, limit = 10, sortBy = 'createdAt' } = req.query;
     const alluser=await User.find().skip((page-1)*limit).limit(Number(limit)).sort({[sortBy]:-1})
-    
     res.status(200).json(alluser)
   }catch(err){
     res.status(500).json({ error: err.message })
@@ -20,9 +16,10 @@ const getuser=async(req,res)=>{
 
 
 const register = async (req, res) => {
-  const { username, email, password,role } = req.body;
-  const hashpass=await argon2.hash(password)
-
+  let { username, email, password,role } = req.body;
+  // password=password.toString();
+  const hashpass=await argon2.hash(password);
+  // console.log(typeof hashpass)
   try {
     const user = await new User({ 
       username, 
@@ -49,7 +46,8 @@ const login = async (req,res) => {
     }
     res.status(200).json({ message: 'Login successful', user });
   } catch (err) {
-    res.status(500).json({ message: 'Error logging in', error: err.message });
+    res.status(400).json({ message: 'Error logging in', error: err.message });
+    console.log(err)
   }
 };
 
